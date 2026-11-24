@@ -1,0 +1,6 @@
+{
+  "name": "Limuru Dairy Farmers' Co-operative Society | Limuru Fresh & Relish",
+  "description": "Official e-commerce storefront and cooperative showcase for Limuru Dairy Farmers' Co-operative Society (Kenya), featuring Limuru Fresh milk and Relish yoghurt.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
