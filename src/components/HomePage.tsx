@@ -16,7 +16,7 @@ import {
   MANAGERS_MESSAGE,
   RECIPE_CARDS,
   WHY_CHOOSE_US_ITEMS,
-} from '../data/content';
+} from '../content/dairyContent';
 import type { FlavourKey, PageRoute, Product, QuizAnswers } from '../types/dairy';
 import {
   FLAVOUR_TABS,

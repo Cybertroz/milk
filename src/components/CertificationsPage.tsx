@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, Award, FlaskConical, ShieldCheck, ThermometerSnowflake } from 'lucide-react';
-import { ASSET_IMAGES } from '../data/content';
+import { ASSET_IMAGES } from '../content/dairyContent';
 import type { PageRoute } from '../types/dairy';
 import { KdbBadge, KebsBadge, ResilientImage } from './BrandMark';
 

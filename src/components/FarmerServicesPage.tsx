@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, MessageCircle, Phone } from 'lucide-react';
-import { ASSET_IMAGES } from '../data/content';
+import { ASSET_IMAGES } from '../content/dairyContent';
 import type { PageRoute } from '../types/dairy';
 import { ProductStudioVisual, ResilientImage } from './BrandMark';
 

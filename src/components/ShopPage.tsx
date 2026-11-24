@@ -39,7 +39,7 @@ import {
   getTrayProgressHint,
   validateBulkQuoteRequest,
 } from '../utils/catalog';
-import { ASSET_IMAGES } from '../data/content';
+import { ASSET_IMAGES } from '../content/dairyContent';
 import { buildApiHeaders, resolveApiUrl } from '../utils/wpConfig';
 import { ProductStudioVisual, ResilientImage } from './BrandMark';
 

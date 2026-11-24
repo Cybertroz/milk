@@ -1,6 +1,6 @@
 import React from 'react';
 import { Mail } from 'lucide-react';
-import { MEDIA_ARTICLES } from '../data/content';
+import { MEDIA_ARTICLES } from '../content/dairyContent';
 import { ResilientImage } from './BrandMark';
 
 export function MediaPage() {

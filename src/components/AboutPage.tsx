@@ -6,7 +6,7 @@ import {
   HISTORY_TIMELINE,
   MANAGERS_MESSAGE,
   STRATEGIC_GOALS,
-} from '../data/content';
+} from '../content/dairyContent';
 import type { PageRoute } from '../types/dairy';
 import { LimuruDairyLogo, ResilientImage } from './BrandMark';
 

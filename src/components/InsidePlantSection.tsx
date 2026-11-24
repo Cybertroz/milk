@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { ASSET_IMAGES } from '../data/content';
+import { ASSET_IMAGES } from '../content/dairyContent';
 import type { PageRoute } from '../types/dairy';
 import { resolveAssetUrl } from '../utils/wpConfig';
 import { ResilientImage } from './BrandMark';

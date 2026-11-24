@@ -5,7 +5,7 @@ import {
   GALLERY_ITEMS,
   MANAGERS_MESSAGE,
   MEDIA_ARTICLES,
-} from '../data/content';
+} from '../content/dairyContent';
 import {
   DELIVERY_WINDOWS,
   DELIVERY_ZONES,

@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronLeft, ChevronRight, Expand, X } from 'lucide-react';
-import { GALLERY_ITEMS } from '../data/content';
+import { GALLERY_ITEMS } from '../content/dairyContent';
 import { ProductStudioVisual, ResilientImage } from './BrandMark';
 
 export function GalleryPage() {

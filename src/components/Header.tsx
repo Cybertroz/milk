@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ChevronDown, Menu, ShoppingBag, User, X } from 'lucide-react';
-import { ABOUT_NAV_ITEMS } from '../data/content';
+import { ABOUT_NAV_ITEMS } from '../content/dairyContent';
 import type { AuthUser, PageRoute } from '../types/dairy';
 import { buildHashUrl } from '../utils/routing';
 import { LimuruDairyLogo } from './BrandMark';
