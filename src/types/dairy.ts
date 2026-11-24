@@ -131,6 +131,11 @@ export interface OrderReceipt {
   status?: 'confirmed' | 'packing' | 'dispatched' | 'delivered';
   estimatedDelivery?: string;
   paymentMethod: 'mpesa' | 'cash';
+  paymentStatus?: 'pending' | 'paid' | 'failed' | 'cancelled';
+  mpesaCheckoutRequestId?: string;
+  mpesaMerchantRequestId?: string;
+  mpesaReceiptNumber?: string;
+  paymentMessage?: string;
   items: Array<{
     name: string;
     size: SizeLabel;

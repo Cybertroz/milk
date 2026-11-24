@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import {
+  AlertCircle,
   Boxes,
   CheckCircle2,
   Clock,
+  Loader2,
   MapPin,
   MessageCircle,
   Minus,
   Plus,
+  RefreshCw,
   Search,
   ShoppingBag,
+  Smartphone,
   Trash2,
   Truck,
   User,
@@ -198,6 +202,15 @@ export function CartDrawer({
   const [lookupLoading, setLookupLoading] = useState(false);
   const [manuallyAdjustedIds, setManuallyAdjustedIds] = useState<Record<string, boolean>>({});
   const [draftQtyStrings, setDraftQtyStrings] = useState<Record<string, string>>({});
+  const [pendingMpesa, setPendingMpesa] = useState<{
+    order: OrderReceipt;
+    lookupToken: string;
+    mode: 'daraja' | 'sandbox_preview';
+    transactionType: 'CustomerPayBillOnline' | 'CustomerBuyGoodsOnline';
+    statusError?: string;
+    pollCount: number;
+  } | null>(null);
+  const [mpesaActionLoading, setMpesaActionLoading] = useState(false);
 
   const markManualAdjust = (productId: string) => {
     setManuallyAdjustedIds((prev) => (prev[productId] ? prev : { ...prev, [productId]: true }));
@@ -228,6 +241,182 @@ export function CartDrawer({
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, [isOpen, onClose]);
+
+  const finalizeConfirmedOrder = React.useCallback(
+    (confirmedOrder: OrderReceipt, lookupToken: string) => {
+      const nextSaved: SavedOrderLookup = {
+        orderNumber: confirmedOrder.orderNumber,
+        lookupToken,
+      };
+      setPendingMpesa(null);
+      setReceipt(confirmedOrder);
+      setSavedLookup(nextSaved);
+      setLookupCode(confirmedOrder.orderNumber);
+      setLookupPhone('');
+      try {
+        window.localStorage.setItem(LAST_ORDER_KEY, JSON.stringify(nextSaved));
+        saveOrderToHistory(confirmedOrder);
+      } catch {
+        // Ignore storage quota errors
+      }
+      onClearCart();
+    },
+    [onClearCart]
+  );
+
+  const checkMpesaPaymentStatus = React.useCallback(
+    async (
+      targetOrderNumber: string,
+      targetLookupToken: string,
+      manual = false
+    ) => {
+      if (manual) setMpesaActionLoading(true);
+      try {
+        const res = await fetch(
+          resolveApiUrl(`/api/mpesa/status/${encodeURIComponent(targetOrderNumber)}`),
+          {
+            credentials: 'same-origin',
+            headers: buildApiHeaders({
+              'x-lookup-token': targetLookupToken,
+            }),
+          }
+        );
+        const contentType = res.headers.get('content-type') ?? '';
+        if (!res.ok || !contentType.includes('application/json')) return;
+        const data = (await res.json()) as {
+          order?: OrderReceipt;
+          mode?: 'daraja' | 'sandbox_preview';
+        };
+        if (!data.order) return;
+
+        if (data.order.paymentStatus === 'paid') {
+          finalizeConfirmedOrder(data.order, targetLookupToken);
+          return;
+        }
+
+        if (
+          data.order.paymentStatus === 'cancelled' ||
+          data.order.paymentStatus === 'failed'
+        ) {
+          setPendingMpesa((prev) =>
+            prev && prev.order.orderNumber === targetOrderNumber
+              ? {
+                  ...prev,
+                  order: data.order!,
+                  statusError:
+                    data.order!.paymentMessage ||
+                    'M-Pesa payment was cancelled or declined.',
+                }
+              : prev
+          );
+          return;
+        }
+
+        setPendingMpesa((prev) =>
+          prev && prev.order.orderNumber === targetOrderNumber
+            ? {
+                ...prev,
+                order: data.order!,
+                pollCount: prev.pollCount + 1,
+                statusError: undefined,
+              }
+            : prev
+        );
+      } catch {
+        if (manual) {
+          setPendingMpesa((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  statusError: 'Could not reach server to check payment. Retrying...',
+                }
+              : prev
+          );
+        }
+      } finally {
+        if (manual) setMpesaActionLoading(false);
+      }
+    },
+    [finalizeConfirmedOrder]
+  );
+
+  useEffect(() => {
+    if (
+      !isOpen ||
+      !pendingMpesa ||
+      pendingMpesa.order.paymentStatus !== 'pending' ||
+      pendingMpesa.mode !== 'daraja' ||
+      pendingMpesa.pollCount >= 36
+    ) {
+      return;
+    }
+    const timerId = window.setTimeout(() => {
+      void checkMpesaPaymentStatus(
+        pendingMpesa.order.orderNumber,
+        pendingMpesa.lookupToken,
+        false
+      );
+    }, 2500);
+    return () => window.clearTimeout(timerId);
+  }, [isOpen, pendingMpesa, checkMpesaPaymentStatus]);
+
+  const handleSandboxDecision = async (action: 'confirm' | 'cancel') => {
+    if (!pendingMpesa) return;
+    setMpesaActionLoading(true);
+    try {
+      const res = await fetch(resolveApiUrl('/api/mpesa/demo-complete'), {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: buildApiHeaders({
+          'Content-Type': 'application/json',
+          'x-lookup-token': pendingMpesa.lookupToken,
+        }),
+        body: JSON.stringify({
+          orderNumber: pendingMpesa.order.orderNumber,
+          action,
+          lookupToken: pendingMpesa.lookupToken,
+        }),
+      });
+      const data = (await res.json().catch(() => ({}))) as {
+        order?: OrderReceipt;
+        error?: string;
+      };
+      if (!res.ok || !data.order) {
+        setPendingMpesa((prev) =>
+          prev
+            ? {
+                ...prev,
+                statusError: data.error ?? 'Could not update sandbox payment.',
+              }
+            : prev
+        );
+        return;
+      }
+
+      if (data.order.paymentStatus === 'paid') {
+        finalizeConfirmedOrder(data.order, pendingMpesa.lookupToken);
+      } else {
+        setPendingMpesa((prev) =>
+          prev
+            ? {
+                ...prev,
+                order: data.order!,
+                statusError:
+                  data.order!.paymentMessage || 'Payment prompt cancelled.',
+              }
+            : prev
+        );
+      }
+    } catch {
+      setPendingMpesa((prev) =>
+        prev
+          ? { ...prev, statusError: 'Network error while updating sandbox prompt.' }
+          : prev
+      );
+    } finally {
+      setMpesaActionLoading(false);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -263,7 +452,13 @@ export function CartDrawer({
       if (sessionToken) {
         requestHeaders['Authorization'] = `Bearer ${sessionToken}`;
       }
-      const response = await fetch(resolveApiUrl('/api/orders'), {
+
+      const targetEndpoint =
+        submissionForm.paymentMethod === 'mpesa'
+          ? '/api/mpesa/stkpush'
+          : '/api/orders';
+
+      const response = await fetch(resolveApiUrl(targetEndpoint), {
         method: 'POST',
         credentials: 'same-origin',
         headers: buildApiHeaders(requestHeaders),
@@ -281,6 +476,8 @@ export function CartDrawer({
       const payload = (await response.json()) as {
         order?: OrderReceipt;
         lookupToken?: string;
+        mode?: 'daraja' | 'sandbox_preview';
+        transactionType?: 'CustomerPayBillOnline' | 'CustomerBuyGoodsOnline';
         error?: string;
         fieldErrors?: Partial<Record<keyof CheckoutFormData, string>>;
       };
@@ -291,22 +488,23 @@ export function CartDrawer({
         return;
       }
 
-      const nextSaved: SavedOrderLookup = {
-        orderNumber: payload.order.orderNumber,
-        lookupToken: payload.lookupToken,
-      };
-      setReceipt(payload.order);
-      setSavedLookup(nextSaved);
-      setLookupCode(payload.order.orderNumber);
-      setLookupPhone('');
-      try {
-        window.localStorage.setItem(LAST_ORDER_KEY, JSON.stringify(nextSaved));
-        // Save to cached past orders history for the user profile
-        saveOrderToHistory(payload.order);
-      } catch {
-        // Ignore storage quota errors
+      if (submissionForm.paymentMethod === 'mpesa') {
+        if (payload.order.paymentStatus === 'paid') {
+          finalizeConfirmedOrder(payload.order, payload.lookupToken ?? '');
+        } else {
+          setPendingMpesa({
+            order: payload.order,
+            lookupToken: payload.lookupToken ?? '',
+            mode: payload.mode ?? 'sandbox_preview',
+            transactionType:
+              payload.transactionType ?? 'CustomerPayBillOnline',
+            pollCount: 0,
+          });
+        }
+        return;
       }
-      onClearCart();
+
+      finalizeConfirmedOrder(payload.order, payload.lookupToken ?? '');
     } catch {
       setSubmitError('Network error while saving your order. Please retry.');
     } finally {
@@ -479,9 +677,22 @@ export function CartDrawer({
                 <div>
                   <strong>Payment:</strong>{' '}
                   {receipt.paymentMethod === 'mpesa'
-                    ? 'M-Pesa Paybill / STK'
+                    ? receipt.paymentStatus === 'paid'
+                      ? 'M-Pesa STK Push Confirmed'
+                      : 'M-Pesa Paybill / STK'
                     : 'Cash on delivery'}
                 </div>
+                {receipt.mpesaReceiptNumber && (
+                  <div>
+                    <strong>M-Pesa Code:</strong>{' '}
+                    <span
+                      data-testid="mpesa-receipt-code"
+                      className="font-mono font-bold text-[#0a74b5]"
+                    >
+                      {receipt.mpesaReceiptNumber}
+                    </span>
+                  </div>
+                )}
                 <div>
                   <strong>Placed:</strong> {receipt.placedAt}
                 </div>
@@ -560,6 +771,154 @@ export function CartDrawer({
                   >
                     <User className="w-3.5 h-3.5" />
                     <span>View All My Orders in Profile</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          ) : pendingMpesa ? (
+            <div
+              data-testid="mpesa-pending-panel"
+              className="bg-[#eef8fe] border border-[#8fd5f7] p-5 space-y-4"
+            >
+              <div className="flex items-start gap-3">
+                {pendingMpesa.order.paymentStatus === 'pending' ? (
+                  <div className="w-10 h-10 bg-[#0d2433] text-[#8fd5f7] flex items-center justify-center shrink-0">
+                    <Smartphone className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                ) : (
+                  <div className="w-10 h-10 bg-[#fee2e2] text-[#991b1b] flex items-center justify-center shrink-0">
+                    <AlertCircle className="w-5 h-5" aria-hidden="true" />
+                  </div>
+                )}
+                <div className="min-w-0 flex-1">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#0a74b5]">
+                    {pendingMpesa.mode === 'daraja'
+                      ? pendingMpesa.transactionType === 'CustomerBuyGoodsOnline'
+                        ? 'Daraja Buy Goods Till · STK Push'
+                        : 'Daraja Paybill · STK Push'
+                      : 'M-Pesa STK Push · Sandbox Preview'}
+                  </div>
+                  <h3 className="text-base font-bold text-[#0d2433] mt-0.5">
+                    {pendingMpesa.order.paymentStatus === 'pending'
+                      ? 'Confirm M-Pesa PIN on Phone'
+                      : 'M-Pesa Payment Not Completed'}
+                  </h3>
+                </div>
+              </div>
+
+              <div className="bg-white border border-[#c3e8fb] p-3.5 space-y-1.5 text-xs text-[#0d2433]">
+                <div className="flex justify-between gap-2">
+                  <span className="text-[#0d2433]/65">Order Ref</span>
+                  <span className="font-bold tabular-nums">
+                    {pendingMpesa.order.orderNumber}
+                  </span>
+                </div>
+                <div className="flex justify-between gap-2">
+                  <span className="text-[#0d2433]/65">Phone Prompted</span>
+                  <span className="font-bold tabular-nums">
+                    {pendingMpesa.order.phone}
+                  </span>
+                </div>
+                <div className="flex justify-between gap-2">
+                  <span className="text-[#0d2433]/65">Amount Due</span>
+                  <span className="font-extrabold text-[#0a74b5] tabular-nums">
+                    KES {pendingMpesa.order.totalKes}
+                  </span>
+                </div>
+              </div>
+
+              {pendingMpesa.order.paymentStatus === 'pending' && (
+                <div className="flex items-center gap-2 text-xs text-[#0d2433]/85 bg-white/80 border border-[#c3e8fb] px-3 py-2.5">
+                  <Loader2
+                    className="w-4 h-4 text-[#0a74b5] animate-spin shrink-0"
+                    aria-hidden="true"
+                  />
+                  <span>
+                    {pendingMpesa.mode === 'daraja'
+                      ? 'Waiting for Safaricom M-Pesa PIN confirmation...'
+                      : 'Ready for Sandbox PIN confirmation test below.'}
+                  </span>
+                </div>
+              )}
+
+              {pendingMpesa.statusError && (
+                <p
+                  data-testid="mpesa-status-error"
+                  className="text-xs font-semibold text-[#991b1b] bg-[#fee2e2]/70 border border-[#fecaca] px-3 py-2"
+                  role="alert"
+                >
+                  {pendingMpesa.statusError}
+                </p>
+              )}
+
+              {pendingMpesa.mode === 'sandbox_preview' &&
+                pendingMpesa.order.paymentStatus === 'pending' && (
+                  <div className="bg-white border border-[#c3e8fb] p-3 space-y-2.5">
+                    <p className="text-[11px] leading-relaxed text-[#0d2433]/75">
+                      Safaricom Daraja credentials are not set in environment variables yet. Test the flow below or add <code className="font-mono text-[10px]">MPESA_CONSUMER_KEY</code>, <code className="font-mono text-[10px]">MPESA_CONSUMER_SECRET</code>, <code className="font-mono text-[10px]">MPESA_SHORTCODE</code>, and <code className="font-mono text-[10px]">MPESA_PASSKEY</code> on Vercel to trigger real phone prompts.
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        disabled={mpesaActionLoading}
+                        data-testid="mpesa-sandbox-confirm"
+                        onClick={() => handleSandboxDecision('confirm')}
+                        className="min-h-[42px] bg-[#16a34a] hover:bg-[#15803d] disabled:opacity-60 text-white text-[11px] font-bold uppercase tracking-wider px-3 py-2 cursor-pointer transition-colors"
+                      >
+                        Confirm PIN (Sandbox)
+                      </button>
+                      <button
+                        type="button"
+                        disabled={mpesaActionLoading}
+                        data-testid="mpesa-sandbox-cancel"
+                        onClick={() => handleSandboxDecision('cancel')}
+                        className="min-h-[42px] bg-white hover:bg-[#fee2e2] disabled:opacity-60 text-[#991b1b] border border-[#fecaca] text-[11px] font-bold uppercase tracking-wider px-3 py-2 cursor-pointer transition-colors"
+                      >
+                        Cancel Prompt
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+              <div className="space-y-2 pt-1">
+                {pendingMpesa.order.paymentStatus === 'pending' ? (
+                  <button
+                    type="button"
+                    disabled={mpesaActionLoading}
+                    data-testid="mpesa-check-status-btn"
+                    onClick={() =>
+                      checkMpesaPaymentStatus(
+                        pendingMpesa.order.orderNumber,
+                        pendingMpesa.lookupToken,
+                        true
+                      )
+                    }
+                    className="w-full min-h-[44px] inline-flex items-center justify-center gap-2 bg-[#0d2433] hover:bg-[#0a74b5] disabled:opacity-60 text-white text-xs font-bold uppercase tracking-wider px-4 py-3 cursor-pointer transition-colors"
+                  >
+                    <RefreshCw
+                      className={`w-3.5 h-3.5 ${mpesaActionLoading ? 'animate-spin' : ''}`}
+                      aria-hidden="true"
+                    />
+                    <span>Check M-Pesa Payment Status</span>
+                  </button>
+                ) : (
+                  <button
+                    type="button"
+                    onClick={() => setPendingMpesa(null)}
+                    data-testid="mpesa-retry-btn"
+                    className="w-full min-h-[44px] bg-[#0a74b5] hover:bg-[#0d2433] text-white text-xs font-bold uppercase tracking-wider px-4 py-3 cursor-pointer transition-colors"
+                  >
+                    Retry M-Pesa or Switch Payment
+                  </button>
+                )}
+
+                {pendingMpesa.order.paymentStatus === 'pending' && (
+                  <button
+                    type="button"
+                    onClick={() => setPendingMpesa(null)}
+                    className="w-full min-h-[42px] bg-white border border-[#c3e8fb] text-[#0d2433] hover:bg-[#dff1fb] text-xs font-bold uppercase tracking-wider px-4 py-2.5 cursor-pointer transition-colors"
+                  >
+                    Back to Checkout Details
                   </button>
                 )}
               </div>
@@ -1103,8 +1462,12 @@ export function CartDrawer({
                         className="btn-shine w-full min-h-[46px] bg-[#0a74b5] hover:bg-[#0d2433] disabled:opacity-60 text-white text-xs font-bold uppercase tracking-wider py-3.5 px-4 transition-colors cursor-pointer"
                       >
                         {isSubmitting
-                          ? 'Saving Order...'
-                          : `Place Order · KES ${summary.totalKes}`}
+                          ? form.paymentMethod === 'mpesa'
+                            ? 'Sending M-Pesa STK Prompt...'
+                            : 'Saving Order...'
+                          : form.paymentMethod === 'mpesa'
+                            ? `Pay KES ${summary.totalKes} via M-Pesa STK`
+                            : `Place Order · KES ${summary.totalKes}`}
                       </button>
 
                       <a
