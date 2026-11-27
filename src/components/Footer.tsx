@@ -31,7 +31,7 @@ export function Footer({ onNavigate }: FooterProps) {
                   href="https://www.facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 text-xs font-semibold bg-white border border-[#c3e8fb] hover:bg-[#8fd5f7] transition-colors"
+                  className="rounded-lg px-3 py-1.5 text-xs font-semibold bg-white border border-[#c3e8fb] hover:bg-[#8fd5f7] transition-colors"
                 >
                   Facebook
                 </a>
@@ -39,7 +39,7 @@ export function Footer({ onNavigate }: FooterProps) {
                   href="https://twitter.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 text-xs font-semibold bg-white border border-[#c3e8fb] hover:bg-[#8fd5f7] transition-colors"
+                  className="rounded-lg px-3 py-1.5 text-xs font-semibold bg-white border border-[#c3e8fb] hover:bg-[#8fd5f7] transition-colors"
                 >
                   Twitter
                 </a>
@@ -47,7 +47,7 @@ export function Footer({ onNavigate }: FooterProps) {
                   href="https://wa.me/254713833814"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-white border border-[#c3e8fb] hover:bg-[#8fd5f7] transition-colors"
+                  className="rounded-lg inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-white border border-[#c3e8fb] hover:bg-[#8fd5f7] transition-colors"
                 >
                   <MessageCircle className="w-3.5 h-3.5 text-[#0a74b5]" aria-hidden="true" />
                   <span>WhatsApp</span>
@@ -56,7 +56,7 @@ export function Footer({ onNavigate }: FooterProps) {
                   href="https://maps.google.com/?q=Maziwa+House+Limuru+Kenya"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-white border border-[#c3e8fb] hover:bg-[#8fd5f7] transition-colors"
+                  className="rounded-lg inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-white border border-[#c3e8fb] hover:bg-[#8fd5f7] transition-colors"
                 >
                   <MapPin className="w-3.5 h-3.5 text-[#0a74b5]" aria-hidden="true" />
                   <span>Map</span>

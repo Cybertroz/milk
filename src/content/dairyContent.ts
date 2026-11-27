@@ -18,6 +18,9 @@ export const ASSET_IMAGES = {
   managerPortrait: UPLOADED_ASSETS.managerPortrait,
   plantProductTeam: UPLOADED_ASSETS.plantProductTeam,
   lalaPlain1L: UPLOADED_ASSETS.lalaPlain1L,
+  ushirikaGroup: UPLOADED_ASSETS.ushirikaGroup,
+  stageHandshake: UPLOADED_ASSETS.stageHandshake,
+  collectionCentre: UPLOADED_ASSETS.collectionCentre,
 };
 
 export const ABOUT_NAV_ITEMS = [
@@ -73,7 +76,7 @@ export const FARM_TO_CUP_STEPS = [
     description: 'Fresh milk harvested twice daily across the lush, cool highlands of Limuru and Kiambu by dedicated member families.',
     metricLabel: 'Daily Intakes',
     metricValue: '11,850 Farms',
-    image: ASSET_IMAGES.plantReception,
+    image: ASSET_IMAGES.collectionCentre,
   },
   {
     id: 'step-2',
@@ -212,8 +215,8 @@ export const GALLERY_ITEMS: Array<{
   {
     id: 'gal-ushirika-group',
     title: 'World Bank NARIGP Partnership & 134 million support',
-    category: 'CSR Activities',
-    image: ASSET_IMAGES.plantReception,
+    category: 'Cooperative Events',
+    image: ASSET_IMAGES.ushirikaGroup,
     caption: 'World Bank NARIGP 134 million support for Limuru Dairy processing and chilling infrastructure.',
     aspectClass: 'aspect-[4/3]',
     isCutout: false,
@@ -221,17 +224,17 @@ export const GALLERY_ITEMS: Array<{
   {
     id: 'gal-product-tasting',
     title: 'Deputy President Kithure Kindiki Tasting Limuru Fresh Milk',
-    category: 'CSR Activities',
-    image: ASSET_IMAGES.eslArt,
-    caption: 'Deputy President Kithure Kindiki inspecting and tasting dairy products.',
+    category: 'Cooperative Events',
+    image: ASSET_IMAGES.stageHandshake,
+    caption: 'Deputy President Kithure Kindiki congratulating cooperative leadership and celebrating Kenyan dairy.',
     aspectClass: 'aspect-[4/3]',
     isCutout: false,
   },
   {
     id: 'gal-tree-watering',
     title: 'Kiambu Governor MoU and Tree Planting',
-    category: 'CSR Activities',
-    image: ASSET_IMAGES.vetExtension,
+    category: 'Cooperative Events',
+    image: '/assets/aistudio/_DSC1625_b3b69202.JPG',
     caption: 'Kiambu Governor signing MoU and participating in tree planting.',
     aspectClass: 'aspect-[4/3]',
     isCutout: false,
@@ -245,46 +248,319 @@ export const GALLERY_ITEMS: Array<{
     aspectClass: 'aspect-[4/3]',
     isCutout: false,
   },
-];
-
-while (GALLERY_ITEMS.filter((i) => i.category === 'CSR Activities').length < 12) {
-  const n = GALLERY_ITEMS.length + 1;
-  GALLERY_ITEMS.push({
-    id: `gal-csr-${n}`,
-    title: `Community and Farmer CSR Activity ${n}`,
+  // 12 genuine CSR Activities community outreach photos (zero white-dustcoat plant inspection photos)
+  {
+    id: 'gal-csr-1',
+    title: 'Community Artisans & Craft Empowerment',
     category: 'CSR Activities',
-    image: requiredNewImagesList[n % requiredNewImagesList.length],
-    caption: `Cooperative community outreach and farmer empowerment event ${n}.`,
+    image: '/assets/aistudio/IMG_0428__2__e7f6b55c.JPG',
+    caption: 'Limuru Dairy CSR team supporting local community artisans and women craft groups.',
     aspectClass: 'aspect-[4/3]',
     isCutout: false,
-  });
-}
+  },
+  {
+    id: 'gal-csr-2',
+    title: 'Local Beadwork Women’s Enterprise Support',
+    category: 'CSR Activities',
+    image: '/assets/aistudio/IMG_0433__2__64b262cd.JPG',
+    caption: 'Showcasing handmade community beadwork backed through cooperative CSR outreach.',
+    aspectClass: 'aspect-[4/3]',
+    isCutout: false,
+  },
+  {
+    id: 'gal-csr-3',
+    title: 'Relish Yoghurt Community Sharing Drive',
+    category: 'CSR Activities',
+    image: '/assets/aistudio/IMG_0496_bd6e1da1.JPG',
+    caption: 'Cooperative volunteers sharing chilled Relish yoghurt cups with community families.',
+    aspectClass: 'aspect-[4/3]',
+    isCutout: false,
+  },
+  {
+    id: 'gal-csr-4',
+    title: 'Cooperative Nutrition & Outreach Briefing',
+    category: 'CSR Activities',
+    image: '/assets/aistudio/IMG_0505_1e6fb00e.JPG',
+    caption: 'Community leaders welcoming the Limuru Dairy CSR team with food and dairy provisions.',
+    aspectClass: 'aspect-[4/3]',
+    isCutout: false,
+  },
+  {
+    id: 'gal-csr-5',
+    title: 'School & Youth Dairy Nutrition CSR',
+    category: 'CSR Activities',
+    image: '/assets/aistudio/IMG_0455_c747daf8.JPG',
+    caption: 'Distributing Relish cultured yoghurt and household supplies at local youth outreach.',
+    aspectClass: 'aspect-[4/3]',
+    isCutout: false,
+  },
+  {
+    id: 'gal-csr-6',
+    title: 'Children Enjoying Relish Strawberry Yoghurt',
+    category: 'CSR Activities',
+    image: '/assets/aistudio/IMG_0472_590e4c9e.JPG',
+    caption: 'Young community member enjoying nutritious Relish strawberry yoghurt during CSR visit.',
+    aspectClass: 'aspect-[4/3]',
+    isCutout: false,
+  },
+  {
+    id: 'gal-csr-7',
+    title: 'Host Household CSR Fellowship Visit',
+    category: 'CSR Activities',
+    image: '/assets/aistudio/IMG_0408__2__4b74aca0.JPG',
+    caption: 'Cooperative staff and elders meeting community host families during CSR outreach.',
+    aspectClass: 'aspect-[4/3]',
+    isCutout: false,
+  },
+  {
+    id: 'gal-csr-8',
+    title: 'Community Household Support & Meal Sharing',
+    category: 'CSR Activities',
+    image: '/assets/aistudio/IMG_0419_7e68ca6e.JPG',
+    caption: 'Sharing fellowship and nutritious dairy refreshments with community households.',
+    aspectClass: 'aspect-[4/3]',
+    isCutout: false,
+  },
+  {
+    id: 'gal-csr-9',
+    title: 'Village Elders & Families CSR Gathering',
+    category: 'CSR Activities',
+    image: '/assets/aistudio/IMG_0409_d1493bb1.JPG',
+    caption: 'Engaging local household elders and youth during Limuru Dairy social responsibility day.',
+    aspectClass: 'aspect-[4/3]',
+    isCutout: false,
+  },
+  {
+    id: 'gal-csr-10',
+    title: 'Community Provisions & LIMDA Support Handover',
+    category: 'CSR Activities',
+    image: '/assets/aistudio/IMG_0509__2__49c79c68.JPG',
+    caption: 'Handing over yoghurt cartons and household provisions with community representatives.',
+    aspectClass: 'aspect-[4/3]',
+    isCutout: false,
+  },
+  {
+    id: 'gal-csr-11',
+    title: 'Limuru Neighbourhood Community Outreach',
+    category: 'CSR Activities',
+    image: '/assets/aistudio/IMG_0389_4e8dfba6.JPG',
+    caption: 'Full community gathering hosted by Limuru Dairy Farmers Co-operative CSR ambassadors.',
+    aspectClass: 'aspect-[4/3]',
+    isCutout: false,
+  },
+  {
+    id: 'gal-csr-12',
+    title: 'Inclusive Community Celebration & Support',
+    category: 'CSR Activities',
+    image: '/assets/aistudio/IMG_0398_1317e502.JPG',
+    caption: 'Celebrating inclusive community partnership and support across Kiambu neighbourhoods.',
+    aspectClass: 'aspect-[4/3]',
+    isCutout: false,
+  },
+];
 
-for (const imgPath of requiredNewImagesList) {
-  if (!GALLERY_ITEMS.some((i) => i.image === imgPath)) {
+const CURATED_ARCHIVE_ITEMS: Array<{
+  image: string;
+  title: string;
+  category: 'Processing Plant' | 'Farms & Collection' | 'Cooperative Events';
+  caption: string;
+}> = [
+  {
+    image: '/assets/aistudio/IMG_8003_9838f803.jpg',
+    title: 'Limuru Dairy Farmers Coop Operations — Quality Tasting',
+    category: 'Processing Plant',
+    caption: 'Plant food-safety specialists in sanitary dustcoats evaluating Relish cultured yoghurt batches.',
+  },
+  {
+    image: '/assets/aistudio/_DSC1634_a8af3e20.JPG',
+    title: 'Limuru Dairy Farmers Coop Operations — Hygiene Protocol',
+    category: 'Processing Plant',
+    caption: 'Team donning sanitary white dustcoats and hairnets prior to entering the processing floor.',
+  },
+  {
+    image: '/assets/aistudio/IMG_6293_7a029c5c.JPG',
+    title: 'Limuru Dairy Farmers Coop Operations — Plant Walkthrough',
+    category: 'Processing Plant',
+    caption: 'Technical quality inspectors touring Maziwa processing grounds in full sanitary attire.',
+  },
+  {
+    image: '/assets/aistudio/IMG_6303_489ddcb8.JPG',
+    title: 'Limuru Dairy Farmers Coop Operations — Yard Briefing',
+    category: 'Processing Plant',
+    caption: 'Operations and production supervisors reviewing daily intake logistics at the plant.',
+  },
+  {
+    image: '/assets/aistudio/IMG_6314_059ee2dd.JPG',
+    title: 'Limuru Dairy Farmers Coop Operations — Sanitary Pipework',
+    category: 'Processing Plant',
+    caption: 'Engineers and quality leads inspecting closed-loop dairy piping inside the pasteurization hall.',
+  },
+  {
+    image: '/assets/aistudio/IMG_6325_5237ff89.JPG',
+    title: 'Limuru Dairy Farmers Coop Operations — Valve Inspection',
+    category: 'Processing Plant',
+    caption: 'Detailed clean-in-place stainless valve inspection by processing technicians.',
+  },
+  {
+    image: '/assets/aistudio/IMG_6295_27a85e44.JPG',
+    title: 'Limuru Dairy Farmers Coop Operations — Chilled Fleet',
+    category: 'Processing Plant',
+    caption: 'Plant dispatch and inspection staff alongside the Limuru Dairy refrigerated delivery truck.',
+  },
+  {
+    image: '/assets/aistudio/IMG_7832_f32eaf76.JPG',
+    title: 'Limuru Dairy Farmers Coop Operations — Milk Intake Team',
+    category: 'Processing Plant',
+    caption: 'Quality assurance and logistics staff reviewing chilled milk tanker arrivals.',
+  },
+  {
+    image: '/assets/aistudio/IMG_5958_7709b32c.JPG',
+    title: 'Limuru Dairy Farmers Coop Operations — Product Assurance',
+    category: 'Processing Plant',
+    caption: 'Quality leaders reviewing packaged Limuru Fresh milk cartons outside the processing hall.',
+  },
+  {
+    image: '/assets/aistudio/edit_21_017b5c23.JPG',
+    title: 'Limuru Dairy Farmers Coop Operations — Chilling Tankers',
+    category: 'Processing Plant',
+    caption: 'Plant engineers inspecting stainless milk bulk tankers at the reception bay.',
+  },
+  {
+    image: '/assets/aistudio/IMG_8980_58a394cd.jpg',
+    title: 'Limuru Dairy Farmers Coop Operations — Stainless Line Tour',
+    category: 'Processing Plant',
+    caption: 'Board leaders and quality assurance officers inside the stainless-steel processing line.',
+  },
+  {
+    image: '/assets/aistudio/IMG_5759_37aab0de.JPG',
+    title: 'Limuru Dairy Farmers Coop Operations — Aseptic Silos',
+    category: 'Processing Plant',
+    caption: 'Overhead view of stainless pasteurization silos and automated ESL piping.',
+  },
+  {
+    image: '/assets/aistudio/esl_art_8d78dfe3.png',
+    title: 'Limuru Fresh 90-Day ESL Packaging Showcase',
+    category: 'Processing Plant',
+    caption: 'Stacked cartons and aseptic 500ml pouches of Limuru Fresh Long Life Milk.',
+  },
+  {
+    image: '/assets/aistudio/DSC_0127_fbb33261.jpg',
+    title: 'Processing Plant Reception & Landscaped Grounds',
+    category: 'Processing Plant',
+    caption: 'Main processing reception entrance and landscaped compound in Limuru.',
+  },
+  {
+    image: '/assets/aistudio/Maziwa_hse_555665bd.jpeg',
+    title: 'Maziwa House Cooperative Headquarters',
+    category: 'Processing Plant',
+    caption: 'Multi-storey Maziwa House headquarters housing cooperative administration in Limuru Town.',
+  },
+  {
+    image: '/assets/aistudio/IMG_7815__2__66751618.JPG',
+    title: 'Limuru Dairy Farmers Coop Operations — Digital Weighing',
+    category: 'Farms & Collection',
+    caption: 'Digital scale milk weighing and can inspection at the collection centre.',
+  },
+  {
+    image: '/assets/aistudio/Scrolling_Vet_-_Copy_0deeb412.jpg',
+    title: 'Limuru Veterinary & Animal Health Care',
+    category: 'Farms & Collection',
+    caption: 'Cooperative veterinary officers examining dairy cattle on a member smallholder farm.',
+  },
+  {
+    image: '/assets/aistudio/IMG_4751_6b954f0d.jpg',
+    title: 'Limuru Dairy Farmers Coop Operations — Cooling Centre',
+    category: 'Farms & Collection',
+    caption: 'Attendant weighing morning milk beside the Faspol stainless cooling tank at a village centre.',
+  },
+  {
+    image: '/assets/aistudio/IMG_7707__2__26f52958.jpg',
+    title: 'Limuru Dairy Farmers Coop Operations — Farm Extension',
+    category: 'Farms & Collection',
+    caption: 'Cooperative dairy extension officer conducting herd health check at a member homestead.',
+  },
+  {
+    image: '/assets/aistudio/_MG_9703_8fc03d2e.JPG',
+    title: 'Limuru Dairy Farmers Coop Operations — Village Weighing',
+    category: 'Farms & Collection',
+    caption: 'Morning raw milk intake and density check at a cooperative village collection centre.',
+  },
+  {
+    image: '/assets/aistudio/IMG_8113_8a54a225.jpg',
+    title: 'Annual General & Ushirika Leadership Address',
+    category: 'Cooperative Events',
+    caption: 'Cooperative directors and national leaders addressing Limuru Dairy member farmers.',
+  },
+  {
+    image: '/assets/aistudio/IMG_8106_dd212b3b.jpg',
+    title: 'Cooperative Members Stage Welcome',
+    category: 'Cooperative Events',
+    caption: 'Board members and community leaders welcoming guests during Ushirika celebrations.',
+  },
+  {
+    image: '/assets/aistudio/_DSC1622_2d268ac1.JPG',
+    title: 'Cooperative Environmental Tree Planting',
+    category: 'Cooperative Events',
+    caption: 'County leaders and cooperative representatives planting indigenous trees for sustainability.',
+  },
+  {
+    image: '/assets/aistudio/IMG_7773_2424efcb.JPG',
+    title: 'Maziwa House Leadership & Staff Briefing',
+    category: 'Cooperative Events',
+    caption: 'Cooperative management and field extension team outside Maziwa House.',
+  },
+  {
+    image: '/assets/aistudio/IMG_7781__2__1f70f768.JPG',
+    title: 'Cooperative Member Relations Briefing',
+    category: 'Cooperative Events',
+    caption: 'Leadership engaging field partners and farmer representatives at the society offices.',
+  },
+  {
+    image: '/assets/aistudio/IMG_8924_f52553d9.jpg',
+    title: 'World Bank NARIGP Delegation Signing',
+    category: 'Cooperative Events',
+    caption: 'Development partners signing the official visitors ledger during the NARIGP review.',
+  },
+  {
+    image: '/assets/aistudio/IMG_8904_086f8e12.jpg',
+    title: 'Cooperative & County Partner Handshake',
+    category: 'Cooperative Events',
+    caption: 'Board chairperson welcoming development partners to Limuru Dairy.',
+  },
+  {
+    image: '/assets/aistudio/IMG_8909_b50584ef.jpg',
+    title: 'NARIGP Partnership Garden Welcome',
+    category: 'Cooperative Events',
+    caption: 'Cooperative leadership greeting international dairy development guests.',
+  },
+];
+
+for (const item of CURATED_ARCHIVE_ITEMS) {
+  if (!GALLERY_ITEMS.some((existing) => existing.image === item.image)) {
     GALLERY_ITEMS.push({
       id: `gal-img-${GALLERY_ITEMS.length + 1}`,
-      title: 'Limuru Dairy Highland Operation',
-      category: 'Farms',
-      image: imgPath,
-      caption: 'Documentary photo depicting Limuru Dairy operations and farming heritage.',
+      title: item.title,
+      category: item.category,
+      image: item.image,
+      caption: item.caption,
       aspectClass: 'aspect-[4/3]',
       isCutout: false,
     });
   }
 }
 
-while (GALLERY_ITEMS.length < 44) {
-  const n = GALLERY_ITEMS.length + 1;
-  GALLERY_ITEMS.push({
-    id: `gal-pad-${n}`,
-    title: `Limuru Highland Archive Photo ${n}`,
-    category: 'Processing Plant',
-    image: ASSET_IMAGES.plantInspection,
-    caption: `Documentary photograph ${n} depicting Limuru Dairy cooperative plant operations.`,
-    aspectClass: 'aspect-[4/3]',
-    isCutout: false,
-  });
+for (const imgPath of requiredNewImagesList) {
+  if (!GALLERY_ITEMS.some((i) => i.image === imgPath)) {
+    GALLERY_ITEMS.push({
+      id: `gal-img-${GALLERY_ITEMS.length + 1}`,
+      title: 'Limuru Dairy Farmers Coop Operations',
+      category: 'Processing Plant',
+      image: imgPath,
+      caption: 'Documentary photo depicting Limuru Dairy Farmers Co-operative operations.',
+      aspectClass: 'aspect-[4/3]',
+      isCutout: false,
+    });
+  }
 }
 
 export const MEDIA_ARTICLES = [
@@ -308,8 +584,8 @@ export const MEDIA_ARTICLES = [
     summary: 'Limuru Dairy recognized for achieving the highest percentage rate member payment return in Kiambu County.',
     body: [
       'During cooperative celebrations, Limuru Dairy Farmers’ Co-operative Society received top honours for transparent cooperative governance and member return rates.',
-      'General Manager and board representatives accepted the award, thanking our 11,850 dedicated smallholder farmers for their unwavering commitment to quality highland milk.',
+      'General Manager and board representatives accepted the award, thanking our 11,850 dedicated smallholder farmers for their unwavering commitment to quality dairy.',
     ],
-    image: ASSET_IMAGES.plantReception,
+    image: ASSET_IMAGES.stageHandshake,
   },
 ];

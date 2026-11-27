@@ -178,8 +178,8 @@ export function InsidePlantSection({
         <div className="layout-split-6-6 gap-6 sm:gap-8 items-stretch">
           {/* Quiet Auto-Playing & Scroll-Pausing Plant Video Frame */}
           <div className="flex flex-col" data-reveal="up">
-            <div className="bg-white border border-[#c3e8fb] p-2.5 sm:p-3.5 shadow-[0_22px_54px_-24px_rgba(13,36,51,0.16)] flex-1 flex flex-col justify-between">
-              <div className="relative aspect-[16/10] bg-[#dff1fb] overflow-hidden border border-[#dff1fb]">
+            <div className="bg-white rounded-2xl border border-[#c3e8fb] p-2.5 sm:p-3.5 shadow-[0_22px_54px_-24px_rgba(13,36,51,0.16)] flex-1 flex flex-col justify-between">
+              <div className="relative aspect-[16/10] rounded-xl bg-[#dff1fb] overflow-hidden border border-[#dff1fb]">
                 <video
                   ref={videoRef}
                   data-testid="inside-plant-video"
@@ -212,17 +212,18 @@ export function InsidePlantSection({
               <article
                 key={card.id}
                 data-testid={`inside-plant-card-${idx + 1}`}
-                className={`bg-white border border-[#c3e8fb] p-3.5 sm:p-5 flex items-center gap-3 sm:gap-4 shadow-[0_12px_32px_-22px_rgba(13,36,51,0.16)] transition-all duration-700 ease-out ${
+                className={`bg-white rounded-2xl border border-[#c3e8fb] p-3.5 sm:p-5 flex items-center gap-3 sm:gap-4 shadow-[0_12px_32px_-22px_rgba(13,36,51,0.16)] transition-all duration-700 ease-out ${
                   cardsVisible
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-6'
                 }`}
                 style={{ transitionDelay: `${idx * 170}ms` }}
               >
-                <div className="w-20 h-20 sm:w-28 sm:h-24 shrink-0 overflow-hidden border border-[#c3e8fb] bg-[#eef8fe]">
+                <div className="w-20 h-20 sm:w-28 sm:h-24 rounded-xl shrink-0 overflow-hidden border border-[#c3e8fb] bg-[#eef8fe]">
                   <ResilientImage
                     src={card.image}
                     alt={card.alt}
+                    loading="lazy"
                     className="w-full h-full object-cover"
                   />
                 </div>

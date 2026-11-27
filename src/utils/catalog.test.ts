@@ -387,5 +387,25 @@ test('getTrayProgressHint suggests remaining items to complete a full tray and r
   assert.equal(getTrayProgressHint('500ml', 0), null);
 });
 
+test('all uploaded assets, products, media articles, and gallery items resolve exact positive dimensions', async () => {
+  const { UPLOADED_ASSETS } = await import('./catalog');
+  const { getImageDimensions } = await import('./imageDimensions');
 
+  const paths = new Set<string>([
+    ...Object.values(UPLOADED_ASSETS),
+    ...PRODUCTS.map((p) => p.image),
+    ...WHOLESALE_PACKS.map((w) => w.image),
+    ...MEDIA_ARTICLES.map((a) => a.image),
+    ...GALLERY_ITEMS.map((g) => g.image),
+  ]);
 
+  for (const imgPath of paths) {
+    const dims = getImageDimensions(imgPath);
+    assert.ok(dims.width > 0 && dims.height > 0, `Invalid dims for ${imgPath}`);
+    assert.notDeepEqual(
+      dims,
+      { width: 800, height: 600 },
+      `Missing explicit dimension mapping for ${imgPath}`
+    );
+  }
+});

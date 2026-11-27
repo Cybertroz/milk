@@ -23,14 +23,15 @@ export function MediaPage() {
           {MEDIA_ARTICLES.map((article) => (
             <article
               key={article.id}
-              className="layout-split-5-7 gap-6 sm:gap-8 bg-[#eef8fe]/45 p-4 sm:p-8 lg:p-9 shadow-[0_18px_48px_-28px_rgba(13,36,51,0.16)]"
+              className="group layout-split-5-7 gap-6 sm:gap-8 rounded-2xl border border-[#c3e8fb] bg-[#f7fbff] hover:border-[#27a8ec] p-4 sm:p-8 lg:p-9 shadow-[0_18px_48px_-28px_rgba(13,36,51,0.16)] transition-all duration-300"
             >
               <div>
-                <div className="aspect-[4/3] bg-[#dff1fb] overflow-hidden">
+                <div className="aspect-[3/2] rounded-xl bg-white p-1.5 border border-[#c3e8fb] overflow-hidden shadow-xs">
                   <ResilientImage
                     src={article.image}
                     alt={article.title}
-                    className="w-full h-full object-cover object-top"
+                    loading="lazy"
+                    className="w-full h-full rounded-lg object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
               </div>
@@ -59,19 +60,19 @@ export function MediaPage() {
           ))}
 
           {/* Media Enquiries Block */}
-          <div className="bg-[#dff1fb] p-5 sm:p-8 lg:p-10 flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6">
+          <div className="rounded-2xl bg-gradient-to-r from-[#0d2433] to-[#0a4d7a] text-white p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row md:items-center justify-between gap-5 sm:gap-6 shadow-[0_24px_60px_-24px_rgba(13,36,51,0.35)]">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold text-[#0d2433]">
+              <h2 className="text-xl sm:text-2xl font-bold text-white">
                 Media Enquiries
               </h2>
-              <p className="text-sm text-[#0d2433]/80 mt-1.5 max-w-xl">
+              <p className="text-sm text-white/80 mt-1.5 max-w-xl">
                 For press releases, cooperative leadership interviews, and official
                 brand assets, contact our communications desk at Maziwa House.
               </p>
             </div>
             <a
               href="mailto:info@limurudairy.co.ke?subject=Media%20Enquiry%20-%20Limuru%20Dairy"
-              className="btn-shine inline-flex items-center justify-center gap-2.5 bg-[#0d2433] hover:bg-[#0a74b5] text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-5 sm:px-6 py-3.5 sm:py-4 transition-colors shrink-0 break-all"
+              className="btn-shine inline-flex items-center justify-center gap-2.5 rounded-xl bg-[#8fd5f7] hover:bg-white text-[#0d2433] text-[11px] sm:text-xs font-bold uppercase tracking-wider px-5 sm:px-6 py-3.5 sm:py-4 transition-colors shrink-0 break-all"
             >
               <Mail className="w-4 h-4 shrink-0" aria-hidden="true" />
               <span>info@limurudairy.co.ke</span>

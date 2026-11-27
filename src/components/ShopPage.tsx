@@ -42,6 +42,8 @@ import {
 import { ASSET_IMAGES } from '../content/dairyContent';
 import { buildApiHeaders, resolveApiUrl } from '../utils/wpConfig';
 import { ProductStudioVisual, ResilientImage } from './BrandMark';
+import { SectionPageBreak } from './SectionPageBreak';
+import { TiltProductCard } from './TiltProductCard';
 
 interface ShopPageProps {
   initialFlavour?: FlavourKey;
@@ -110,14 +112,14 @@ export function ShopPage({
           <div
             role="tablist"
             aria-label="Shop ordering mode"
-            className="flex flex-wrap sm:inline-flex w-full sm:w-auto gap-1 border border-[#0a74b5]/25 bg-white p-1 shrink-0 self-start lg:self-auto"
+            className="flex flex-wrap sm:inline-flex w-full sm:w-auto gap-1 rounded-xl border border-[#0a74b5]/25 bg-white p-1 shrink-0 self-start lg:self-auto"
           >
             <button
               type="button"
               role="tab"
               aria-selected={shopMode === 'retail'}
               onClick={() => setShopMode('retail')}
-              className={`flex-1 sm:flex-initial px-3.5 sm:px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer min-h-[44px] ${
+              className={`flex-1 sm:flex-initial rounded-lg px-3.5 sm:px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer min-h-[44px] ${
                 shopMode === 'retail'
                   ? 'bg-[#0d2433] text-white'
                   : 'text-[#0d2433] hover:bg-[#eef8fe]'
@@ -131,7 +133,7 @@ export function ShopPage({
               aria-selected={shopMode === 'quick-order'}
               data-testid="tab-quick-order"
               onClick={() => setShopMode('quick-order')}
-              className={`flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 sm:px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer min-h-[44px] ${
+              className={`flex-1 sm:flex-initial rounded-lg inline-flex items-center justify-center gap-1.5 px-3.5 sm:px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer min-h-[44px] ${
                 shopMode === 'quick-order'
                   ? 'bg-[#0a74b5] text-white'
                   : 'text-[#0d2433] hover:bg-[#eef8fe]'
@@ -145,7 +147,7 @@ export function ShopPage({
               aria-selected={shopMode === 'wholesale'}
               data-testid="tab-wholesale"
               onClick={() => setShopMode('wholesale')}
-              className={`w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 sm:px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer min-h-[44px] ${
+              className={`w-full sm:w-auto rounded-lg inline-flex items-center justify-center gap-1.5 px-3.5 sm:px-4 py-2.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer min-h-[44px] ${
                 shopMode === 'wholesale'
                   ? 'bg-[#0a74b5] text-white'
                   : 'text-[#0d2433] hover:bg-[#eef8fe]'
@@ -157,6 +159,13 @@ export function ShopPage({
           </div>
         </div>
       </section>
+
+      <SectionPageBreak
+        variant="cream-arch"
+        fromBg="#eef8fe"
+        toBg="#ffffff"
+        ribbonColor="rgba(143, 213, 247, 0.35)"
+      />
 
       <div key={shopMode} className="animate-view-fade">
         {shopMode === 'wholesale' ? (
@@ -194,9 +203,9 @@ export function ShopPage({
                       role="tab"
                       aria-selected={active}
                       onClick={() => setFlavour(tab.key)}
-                      className={`px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 cursor-pointer whitespace-nowrap ${
+                      className={`rounded-xl px-4 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 cursor-pointer whitespace-nowrap ${
                         active
-                          ? 'bg-[#0d2433] text-white'
+                          ? 'bg-[#0d2433] text-white shadow-xs'
                           : 'bg-[#eef8fe]/70 text-[#0d2433]/80 hover:bg-[#dff1fb] hover:text-[#0d2433]'
                       }`}
                     >
@@ -224,7 +233,7 @@ export function ShopPage({
                         type="button"
                         aria-pressed={active}
                         onClick={() => setSize(sz)}
-                        className={`px-3 py-1.5 text-xs font-semibold transition-colors cursor-pointer tabular-nums ${
+                        className={`rounded-lg px-3 py-1.5 text-xs font-semibold transition-colors cursor-pointer tabular-nums ${
                           active
                             ? 'bg-[#27a8ec] text-white'
                             : 'bg-[#eef8fe] text-[#0d2433]/80 hover:bg-[#dff1fb]'
@@ -252,7 +261,7 @@ export function ShopPage({
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                       placeholder="Search yoghurt or milk..."
-                      className="w-full sm:w-64 pl-10 pr-3 py-2.5 text-sm bg-[#eef8fe]/60 border border-[#c3e8fb] text-[#0d2433] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#27a8ec]"
+                      className="w-full sm:w-64 rounded-xl pl-10 pr-3 py-2.5 text-sm bg-[#eef8fe]/60 border border-[#c3e8fb] text-[#0d2433] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#27a8ec]"
                     />
                   </div>
 
@@ -264,7 +273,7 @@ export function ShopPage({
                       id="shop-sort"
                       value={sort}
                       onChange={(e) => setSort(e.target.value as SortOption)}
-                      className="w-full sm:w-auto px-3.5 py-2.5 text-sm bg-[#eef8fe]/60 border border-[#c3e8fb] text-[#0d2433] font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#27a8ec] cursor-pointer"
+                      className="w-full sm:w-auto rounded-xl px-3.5 py-2.5 text-sm bg-[#eef8fe]/60 border border-[#c3e8fb] text-[#0d2433] font-medium focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#27a8ec] cursor-pointer"
                     >
                       <option value="featured">Sort: Featured</option>
                       <option value="price-asc">Price: Low to High</option>
@@ -310,10 +319,11 @@ export function ShopPage({
                     const pricePerLitre = Math.round(getPricePerLitre(product));
                     const isJustAdded = Boolean(recentlyAddedIds[product.id]);
                     return (
-                      <article
+                      <TiltProductCard
                         key={product.id}
                         data-testid={`product-card-${product.id}`}
-                        className="animate-card-stagger group bg-white border border-[#c3e8fb] hover:border-[#27a8ec] overflow-hidden flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 shadow-[0_10px_28px_-22px_rgba(10,116,181,0.20)] hover:shadow-[0_22px_44px_-22px_rgba(10,116,181,0.28)]"
+                        outerClassName="animate-card-stagger flex"
+                        className="w-full group rounded-2xl bg-white border border-[#c3e8fb] hover:border-[#27a8ec] overflow-hidden flex flex-col justify-between shadow-[0_10px_28px_-22px_rgba(10,116,181,0.20)] hover:shadow-[0_26px_52px_-18px_rgba(10,116,181,0.32)]"
                         style={{ animationDelay: `${Math.min(idx, 7) * 55}ms` }}
                       >
                         <div
@@ -324,7 +334,7 @@ export function ShopPage({
                         {/* Studio pedestal with slide-up Add to cart */}
                         <div className="relative aspect-[4/5] overflow-hidden">
                           {isBestValue && (
-                            <span className="absolute top-3 left-3 z-20 bg-[#0d2433] text-white text-[10px] font-bold uppercase tracking-[0.16em] px-2.5 py-1 shadow-xs">
+                            <span className="absolute top-3 left-3 z-20 rounded-md bg-[#0d2433] text-white text-[10px] font-bold uppercase tracking-[0.16em] px-2.5 py-1 shadow-xs">
                               Best value
                             </span>
                           )}
@@ -338,9 +348,9 @@ export function ShopPage({
                             <ProductStudioVisual
                               src={product.image}
                               alt={`${product.name} ${product.size}`}
+                              loading="lazy"
                               glowColor={product.glowColor}
                               className="w-full h-full"
-                              imgClassName="transition-transform duration-500 group-hover:scale-[1.15]"
                             />
                           </button>
 
@@ -349,7 +359,7 @@ export function ShopPage({
                             <button
                               type="button"
                               onClick={(e) => onAddToCart(product, e.currentTarget)}
-                              className={`btn-shine w-full inline-flex items-center justify-center gap-2 text-white text-xs font-bold uppercase tracking-wider py-2.5 px-3 transition-colors cursor-pointer ${
+                              className={`btn-shine w-full rounded-xl inline-flex items-center justify-center gap-2 text-white text-xs font-bold uppercase tracking-wider py-2.5 px-3 transition-colors cursor-pointer ${
                                 isJustAdded
                                   ? 'bg-[#0d2433]'
                                   : 'bg-[#0a74b5] hover:bg-[#0d2433]'
@@ -406,7 +416,7 @@ export function ShopPage({
                                   data-testid={`retail-add-tray-${product.id}`}
                                   onClick={(e) => onAddToCart(product, e.currentTarget, trayCount)}
                                   title={`Add 1 tray of ${trayCount} pieces to cart`}
-                                  className="inline-flex items-center gap-1 bg-[#eef8fe] hover:bg-[#0a74b5] hover:text-white text-[#0a74b5] font-extrabold uppercase tracking-wider text-[10px] px-2 py-1 border border-[#c3e8fb] cursor-pointer transition-colors"
+                                  className="inline-flex items-center gap-1 rounded-lg bg-[#eef8fe] hover:bg-[#0a74b5] hover:text-white text-[#0a74b5] font-extrabold uppercase tracking-wider text-[10px] px-2 py-1 border border-[#c3e8fb] cursor-pointer transition-colors"
                                 >
                                   <Boxes className="w-3 h-3" />
                                   <span>+1 Tray</span>
@@ -419,7 +429,7 @@ export function ShopPage({
                           <button
                             type="button"
                             onClick={(e) => onAddToCart(product, e.currentTarget)}
-                            className={`btn-shine mt-3 lg:hidden w-full inline-flex items-center justify-center gap-2 text-white text-xs font-bold uppercase tracking-wider py-3 px-3 min-h-[44px] cursor-pointer ${
+                            className={`btn-shine mt-3 lg:hidden w-full rounded-xl inline-flex items-center justify-center gap-2 text-white text-xs font-bold uppercase tracking-wider py-3 px-3 min-h-[44px] cursor-pointer ${
                               isJustAdded ? 'bg-[#0d2433]' : 'bg-[#0a74b5]'
                             }`}
                           >
@@ -433,7 +443,7 @@ export function ShopPage({
                             )}
                           </button>
                         </div>
-                      </article>
+                      </TiltProductCard>
                     );
                   })}
                 </div>
@@ -441,11 +451,18 @@ export function ShopPage({
             </div>
           </section>
 
+          <SectionPageBreak
+            variant="editorial-rule"
+            fromBg="#ffffff"
+            label="Cooperative Production Lines"
+            printBreakBefore
+          />
+
           {/* Our Dairy Products Range Overview (Moved into Shop Module) */}
           <section
             id="our-dairy-products"
             data-testid="shop-our-dairy-products"
-            className="bg-white border-t border-[#c3e8fb] py-16"
+            className="bg-white py-12 sm:py-16"
           >
             <div className="site-container">
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
@@ -464,10 +481,11 @@ export function ShopPage({
               </div>
 
               <div className="mt-8 sm:mt-10 grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-                <article className="bg-[#eef8fe]/55 border border-[#c3e8fb] flex flex-col overflow-hidden">
+                <article className="rounded-2xl bg-[#eef8fe]/55 border border-[#c3e8fb] flex flex-col overflow-hidden shadow-[0_12px_32px_-24px_rgba(13,36,51,0.16)]">
                   <ProductStudioVisual
                     src={ASSET_IMAGES.lalaPlain1L}
                     alt="Limuru Fresh Lala Plain 1L bottle"
+                    loading="lazy"
                     glowColor="rgba(39, 168, 236, 0.24)"
                     className="h-60 p-1.5 border-b border-[#c3e8fb]"
                   />
@@ -496,17 +514,19 @@ export function ShopPage({
                   </div>
                 </article>
 
-                <article className="bg-[#eef8fe]/55 border border-[#c3e8fb] flex flex-col overflow-hidden">
+                <article className="rounded-2xl bg-[#eef8fe]/55 border border-[#c3e8fb] flex flex-col overflow-hidden shadow-[0_12px_32px_-24px_rgba(13,36,51,0.16)]">
                   <div className="relative h-60 bg-[#dff1fb] overflow-hidden border-b border-[#c3e8fb]">
                     <ResilientImage
                       src={ASSET_IMAGES.eslArt}
                       alt="Limuru Fresh 90-Day Long Life ESL Milk cartons and 500ml pouch"
+                      loading="lazy"
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute bottom-2.5 right-2.5 w-22 h-26 border border-[#8fd5f7] shadow-[0_10px_24px_rgba(13,36,51,0.22)]">
+                    <div className="absolute bottom-2.5 right-2.5 w-22 h-26 rounded-xl overflow-hidden border border-[#8fd5f7] shadow-[0_10px_24px_rgba(13,36,51,0.22)]">
                       <ProductStudioVisual
                         src={ASSET_IMAGES.longLifeMilk}
                         alt="Limuru Fresh Long Life Milk 500ml pouch"
+                        loading="lazy"
                         className="w-full h-full p-1"
                       />
                     </div>
@@ -537,10 +557,11 @@ export function ShopPage({
                   </div>
                 </article>
 
-                <article className="bg-[#eef8fe]/55 border border-[#c3e8fb] flex flex-col overflow-hidden">
+                <article className="rounded-2xl bg-[#eef8fe]/55 border border-[#c3e8fb] flex flex-col overflow-hidden shadow-[0_12px_32px_-24px_rgba(13,36,51,0.16)]">
                   <ProductStudioVisual
                     src={ASSET_IMAGES.strawberry1L}
                     alt="Relish Yoghurt range including 1L Strawberry bottle"
+                    loading="lazy"
                     glowColor="rgba(236, 72, 153, 0.22)"
                     className="h-60 p-1.5 border-b border-[#c3e8fb]"
                   />
@@ -719,17 +740,18 @@ function WholesaleBulkEstimator({
               const crates = cratesByPack[pack.id] ?? 0;
               const linkedRetail = PRODUCTS.find((p) => p.id === pack.productId);
               return (
-                <article
+                <TiltProductCard
                   key={pack.id}
                   data-testid={`wholesale-pack-${pack.id}`}
-                  className={`border transition-all flex flex-col justify-between ${
+                  outerClassName="flex"
+                  className={`w-full rounded-2xl border overflow-hidden flex flex-col justify-between ${
                     crates > 0
                       ? 'border-[#0a74b5] bg-[#eef8fe]/45 shadow-[0_14px_34px_-22px_rgba(10,116,181,0.3)]'
-                      : 'border-[#c3e8fb] bg-white'
+                      : 'border-[#c3e8fb] bg-white hover:border-[#0a74b5]/45'
                   }`}
                 >
                   <div className="p-4 flex items-center gap-4 border-b border-[#dff1fb]">
-                    <div className="w-20 h-24 shrink-0 border border-[#c3e8fb] overflow-hidden">
+                    <div className="w-20 h-24 shrink-0 rounded-xl border border-[#c3e8fb] overflow-hidden">
                       <ProductStudioVisual
                         src={pack.image}
                         alt={pack.name}
@@ -741,7 +763,7 @@ function WholesaleBulkEstimator({
                         <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#0a74b5]">
                           {pack.brand}
                         </span>
-                        <span className="bg-[#0d2433] text-white text-[10px] font-bold uppercase px-2 py-0.5 tabular-nums">
+                        <span className="rounded-md bg-[#0d2433] text-white text-[10px] font-bold uppercase px-2 py-0.5 tabular-nums">
                           Save {pack.savingsPct}%
                         </span>
                       </div>
@@ -763,7 +785,7 @@ function WholesaleBulkEstimator({
                   </div>
 
                   <div className="p-4 bg-white flex items-center justify-between gap-3">
-                    <div className="inline-flex items-center bg-[#eef8fe]">
+                    <div className="inline-flex items-center rounded-xl overflow-hidden bg-[#eef8fe]">
                       <button
                         type="button"
                         onClick={() => adjustCrate(pack.id, -1)}
@@ -806,17 +828,17 @@ function WholesaleBulkEstimator({
                       </button>
                     )}
                   </div>
-                </article>
+                </TiltProductCard>
               );
             })}
           </div>
 
           {/* Right 5 cols: Live Wholesale Quote Summary & Submission */}
-          <div className="bg-[#eef8fe] border border-[#c3e8fb] p-6 sm:p-7 space-y-5">
+          <div className="rounded-2xl bg-[#eef8fe] border border-[#c3e8fb] p-6 sm:p-7 space-y-5">
             {quoteReceipt ? (
               <div
                 data-testid="quote-confirmation"
-                className="bg-white border border-[#c3e8fb] p-6 space-y-4"
+                className="rounded-xl bg-white border border-[#c3e8fb] p-6 space-y-4"
               >
                 <div className="flex items-center gap-3">
                   <CheckCircle2
@@ -873,7 +895,7 @@ function WholesaleBulkEstimator({
                 <button
                   type="button"
                   onClick={() => setQuoteReceipt(null)}
-                  className="w-full bg-[#0d2433] hover:bg-[#0a74b5] text-white text-xs font-bold uppercase tracking-wider py-3 px-4 cursor-pointer"
+                  className="w-full rounded-xl bg-[#0d2433] hover:bg-[#0a74b5] text-white text-xs font-bold uppercase tracking-wider py-3 px-4 transition-colors cursor-pointer"
                 >
                   Prepare another quote
                 </button>
@@ -889,7 +911,7 @@ function WholesaleBulkEstimator({
                   </span>
                 </div>
 
-                <div className="bg-white border border-[#c3e8fb] p-4 space-y-2 text-xs">
+                <div className="rounded-xl bg-white border border-[#c3e8fb] p-4 space-y-2 text-xs">
                   <div className="flex justify-between text-[#0d2433]/65">
                     <span>Retail Equivalent Value</span>
                     <span className="line-through tabular-nums">
@@ -931,7 +953,7 @@ function WholesaleBulkEstimator({
                       value={organizationName}
                       onChange={(e) => setOrganizationName(e.target.value)}
                       placeholder="e.g. Tigoni Academy / Highland Grocers"
-                      className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#c3e8fb] text-[#0d2433] focus:outline-none focus:ring-2 focus:ring-[#27a8ec]"
+                      className="w-full rounded-xl px-3.5 py-2.5 text-sm bg-white border border-[#c3e8fb] text-[#0d2433] focus:outline-none focus:ring-2 focus:ring-[#27a8ec]"
                     />
                     {formErrors.organizationName && (
                       <p className="text-xs text-[#991b1b] mt-1" role="alert">
@@ -956,7 +978,7 @@ function WholesaleBulkEstimator({
                         value={contactName}
                         onChange={(e) => setContactName(e.target.value)}
                         placeholder="Peter Nduura"
-                        className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#c3e8fb] text-[#0d2433] focus:outline-none focus:ring-2 focus:ring-[#27a8ec]"
+                        className="w-full rounded-xl px-3.5 py-2.5 text-sm bg-white border border-[#c3e8fb] text-[#0d2433] focus:outline-none focus:ring-2 focus:ring-[#27a8ec]"
                       />
                       {formErrors.contactName && (
                         <p className="text-xs text-[#991b1b] mt-1" role="alert">
@@ -980,7 +1002,7 @@ function WholesaleBulkEstimator({
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="0713833814"
-                        className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#c3e8fb] text-[#0d2433] focus:outline-none focus:ring-2 focus:ring-[#27a8ec]"
+                        className="w-full rounded-xl px-3.5 py-2.5 text-sm bg-white border border-[#c3e8fb] text-[#0d2433] focus:outline-none focus:ring-2 focus:ring-[#27a8ec]"
                       />
                       {formErrors.phone && (
                         <p className="text-xs text-[#991b1b] mt-1" role="alert">
@@ -1003,7 +1025,7 @@ function WholesaleBulkEstimator({
                       onChange={(e) =>
                         setDeliveryZoneId(e.target.value as DeliveryZoneId)
                       }
-                      className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#c3e8fb] text-[#0d2433] focus:outline-none focus:ring-2 focus:ring-[#27a8ec] cursor-pointer"
+                      className="w-full rounded-xl px-3.5 py-2.5 text-sm bg-white border border-[#c3e8fb] text-[#0d2433] focus:outline-none focus:ring-2 focus:ring-[#27a8ec] cursor-pointer"
                     >
                       {DELIVERY_ZONES.map((zone) => (
                         <option key={zone.id} value={zone.id}>
@@ -1027,7 +1049,7 @@ function WholesaleBulkEstimator({
                       value={notes}
                       onChange={(e) => setNotes(e.target.value)}
                       placeholder="e.g. Every Monday & Thursday morning"
-                      className="w-full px-3.5 py-2.5 text-sm bg-white border border-[#c3e8fb] text-[#0d2433] focus:outline-none focus:ring-2 focus:ring-[#27a8ec]"
+                      className="w-full rounded-xl px-3.5 py-2.5 text-sm bg-white border border-[#c3e8fb] text-[#0d2433] focus:outline-none focus:ring-2 focus:ring-[#27a8ec]"
                     />
                   </div>
 
@@ -1045,7 +1067,7 @@ function WholesaleBulkEstimator({
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="btn-shine w-full inline-flex items-center justify-center gap-2 bg-[#0d2433] hover:bg-[#0a74b5] disabled:opacity-60 text-white text-xs font-bold uppercase tracking-wider py-4 px-4 transition-colors cursor-pointer"
+                    className="btn-shine w-full rounded-xl inline-flex items-center justify-center gap-2 bg-[#0d2433] hover:bg-[#0a74b5] disabled:opacity-60 text-white text-xs font-bold uppercase tracking-wider py-4 px-4 transition-colors cursor-pointer"
                   >
                     <ClipboardCheck className="w-4 h-4" aria-hidden="true" />
                     <span>
@@ -1108,13 +1130,14 @@ export function QuickViewModal({
       onClick={onClose}
     >
       <div
-        className="bg-white max-w-2xl w-full max-h-[94dvh] sm:max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain layout-quickview-split shadow-[0_32px_80px_-20px_rgba(13,36,51,0.35)]"
+        className="bg-white rounded-2xl overflow-hidden max-w-2xl w-full max-h-[94dvh] sm:max-h-[calc(100dvh-2rem)] overflow-y-auto overscroll-contain layout-quickview-split shadow-[0_32px_80px_-20px_rgba(13,36,51,0.35)]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="h-52 sm:h-64 md:h-auto md:min-h-[400px] border-b md:border-b-0 md:border-r border-[#c3e8fb]">
           <ProductStudioVisual
             src={product.image}
             alt={`${product.name} ${product.size}`}
+            loading="lazy"
             glowColor={product.glowColor}
             className="w-full h-full"
           />
@@ -1512,16 +1535,17 @@ function QuickOrderGrid({
               <div
                 key={product.id}
                 data-testid={`quick-order-row-${product.id}`}
-                className={`border p-4 bg-white flex items-start gap-4 transition-all ${
+                className={`rounded-2xl border p-4 bg-white flex items-start gap-4 transition-all ${
                   qty > 0
                     ? 'border-[#0a74b5] bg-[#eef8fe]/30 shadow-[0_10px_28px_-16px_rgba(10,116,181,0.25)]'
                     : 'border-[#c3e8fb]'
                 }`}
               >
-                <div className="w-16 h-20 shrink-0 border border-[#c3e8fb] overflow-hidden bg-[#eef8fe]/50">
+                <div className="w-16 h-20 rounded-xl shrink-0 border border-[#c3e8fb] overflow-hidden bg-[#eef8fe]/50">
                   <ProductStudioVisual
                     src={product.image}
                     alt={product.name}
+                    loading="lazy"
                     className="w-full h-full p-1"
                   />
                 </div>

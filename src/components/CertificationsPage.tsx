@@ -75,9 +75,9 @@ export function CertificationsPage({ onNavigate }: CertificationsPageProps) {
               {QUALITY_CHECKPOINTS.map(({ icon: Icon, step, title, detail }) => (
                 <article
                   key={step}
-                  className="bg-[#eef8fe]/60 border border-[#c3e8fb] p-5 sm:p-6 flex flex-col"
+                  className="rounded-2xl bg-[#eef8fe]/60 border border-[#c3e8fb] p-5 sm:p-6 flex flex-col"
                 >
-                  <div className="w-10 h-10 bg-white border border-[#c3e8fb] flex items-center justify-center text-[#0a74b5]">
+                  <div className="w-10 h-10 rounded-xl bg-white border border-[#c3e8fb] flex items-center justify-center text-[#0a74b5]">
                     <Icon className="w-5 h-5" aria-hidden="true" />
                   </div>
                   <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#0a74b5] mt-4">
@@ -98,11 +98,12 @@ export function CertificationsPage({ onNavigate }: CertificationsPageProps) {
       <section className="bg-[#dff1fb]/65 border-y border-[#c3e8fb] py-12 sm:py-16 lg:py-20">
         <div className="site-container layout-split-6-6 gap-8 items-center">
           <div>
-            <div className="bg-white p-3 border border-[#c3e8fb] shadow-[0_20px_50px_-24px_rgba(13,36,51,0.16)]">
+            <div className="bg-white rounded-2xl p-3 border border-[#c3e8fb] shadow-[0_20px_50px_-24px_rgba(13,36,51,0.16)]">
               <ResilientImage
                 src={ASSET_IMAGES.plantInspection}
                 alt="Quality and food-safety walkthrough inside Limuru Dairy processing facility"
-                className="w-full aspect-[4/3] object-cover"
+                loading="lazy"
+                className="w-full rounded-xl aspect-[4/3] object-cover"
               />
               <div className="pt-3 px-1 text-xs font-semibold text-[#0d2433]/70">
                 Protective clean-room inspection inside our Limuru processing plant
@@ -111,8 +112,8 @@ export function CertificationsPage({ onNavigate }: CertificationsPageProps) {
           </div>
 
           <div className="space-y-5">
-            <div className="inline-flex items-center gap-2 bg-white border border-[#c3e8fb] px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.16em] text-[#0a74b5]">
-              <Award className="w-4 h-4" aria-hidden="true" />
+            <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#0a74b5] flex items-center gap-2">
+              <Award className="w-4 h-4 shrink-0" aria-hidden="true" />
               <span>102nd International Day of Cooperatives</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0d2433]">
@@ -124,11 +125,12 @@ export function CertificationsPage({ onNavigate }: CertificationsPageProps) {
               Day celebrations—affirming that strict plant efficiency directly fuels
               stronger farmer payouts.
             </p>
-            <div className="bg-white border border-[#c3e8fb] p-4 flex items-center gap-4">
-              <div className="w-20 h-16 shrink-0 overflow-hidden border border-[#c3e8fb]">
+            <div className="bg-white rounded-2xl border border-[#c3e8fb] p-4 flex items-center gap-4">
+              <div className="w-20 h-16 rounded-xl shrink-0 overflow-hidden border border-[#c3e8fb]">
                 <ResilientImage
                   src={ASSET_IMAGES.plantProductTeam}
                   alt="Limuru Dairy cooperative leaders and quality team outside the milk processing plant"
+                  loading="lazy"
                   className="w-full h-full object-cover object-top"
                 />
               </div>

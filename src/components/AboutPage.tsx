@@ -9,6 +9,7 @@ import {
 } from '../content/dairyContent';
 import type { PageRoute } from '../types/dairy';
 import { LimuruDairyLogo, ResilientImage } from './BrandMark';
+import { SectionPageBreak } from './SectionPageBreak';
 
 interface AboutPageProps {
   onNavigate?: (page: PageRoute, sectionId?: string) => void;
@@ -35,6 +36,13 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
         </div>
       </section>
 
+      <SectionPageBreak
+        variant="cream-arch"
+        fromBg="#eef8fe"
+        toBg="#ffffff"
+        ribbonColor="rgba(143, 213, 247, 0.35)"
+      />
+
       {/* 1. Manager's Message (White - First section in About Us) */}
       <section id="managers-message" className="scroll-mt-24 bg-white py-12 sm:py-16 lg:py-20">
         <div className="site-container">
@@ -47,11 +55,12 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
 
           <div className="mt-10 layout-split-5-7 gap-10 items-center">
             <div>
-              <div className="bg-[#eef8fe] p-3 border border-[#c3e8fb] shadow-[0_20px_50px_-24px_rgba(13,36,51,0.16)]">
+              <div className="bg-[#eef8fe] rounded-2xl p-3 border border-[#c3e8fb] shadow-[0_20px_50px_-24px_rgba(13,36,51,0.16)]">
                 <ResilientImage
                   src={MANAGERS_MESSAGE.image}
                   alt={MANAGERS_MESSAGE.imageAlt}
-                  className="w-full aspect-[4/3] object-cover object-[50%_18%]"
+                  loading="lazy"
+                  className="w-full rounded-xl aspect-[4/3] object-cover object-[50%_18%]"
                 />
                 <div className="pt-3 px-1 text-xs font-semibold text-[#0d2433]/70">
                   {MANAGERS_MESSAGE.caption}
@@ -79,6 +88,14 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
         </div>
       </section>
 
+      <SectionPageBreak
+        variant="horizon-wave"
+        fromBg="#ffffff"
+        toBg="#eef8fe"
+        ribbonColor="rgba(143, 213, 247, 0.34)"
+        printBreakBefore
+      />
+
       {/* 2. Who We Are (Pale Sky) */}
       <section id="who-we-are" className="scroll-mt-24 bg-[#eef8fe] py-12 sm:py-16 lg:py-20">
         <div className="site-container">
@@ -100,30 +117,39 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
               </p>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="bg-white p-3 border border-[#c3e8fb] shadow-[0_20px_50px_-24px_rgba(13,36,51,0.16)]">
+              <div className="bg-white rounded-2xl p-3 border border-[#c3e8fb] shadow-[0_20px_50px_-24px_rgba(13,36,51,0.16)]">
                 <ResilientImage
                   src={ASSET_IMAGES.maziwaHouse}
                   alt="Maziwa House headquarters of Limuru Dairy Farmers Co-operative Society Ltd"
-                  className="w-full aspect-[4/3] object-cover object-top"
+                  loading="lazy"
+                  className="w-full rounded-xl aspect-[4/3] object-cover object-top"
                 />
                 <div className="pt-3 px-1 text-xs font-semibold text-[#0d2433]/70">
                   Maziwa House · Cooperative HQ, Limuru Town
                 </div>
               </div>
-              <div className="bg-white p-3 border border-[#c3e8fb] shadow-[0_20px_50px_-24px_rgba(13,36,51,0.16)]">
+              <div className="bg-white rounded-2xl p-3 border border-[#c3e8fb] shadow-[0_20px_50px_-24px_rgba(13,36,51,0.16)]">
                 <ResilientImage
                   src={ASSET_IMAGES.plantReception}
                   alt="Limuru Dairy processing plant Reception building and landscaped grounds"
-                  className="w-full aspect-[4/3] object-cover"
+                  loading="lazy"
+                  className="w-full rounded-xl aspect-[4/3] object-cover"
                 />
                 <div className="pt-3 px-1 text-xs font-semibold text-[#0d2433]/70">
-                  Processing Plant Reception · Limuru Highlands
+                  Processing Plant Reception · Limuru Dairy Farmers Coop Operations
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <SectionPageBreak
+        variant="cream-arch"
+        fromBg="#eef8fe"
+        toBg="#ffffff"
+        ribbonColor="rgba(143, 213, 247, 0.34)"
+      />
 
       {/* 2. Vision & Values (White) */}
       <section id="vision-values" className="scroll-mt-24 bg-white py-12 sm:py-16 lg:py-20">

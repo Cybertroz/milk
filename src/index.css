@@ -12,13 +12,13 @@
 
 html {
   scroll-behavior: smooth;
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background-color: #ffffff;
   color: #0d2433;
 }
 
 body {
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background-color: #ffffff;
   color: #0d2433;
   overflow-x: clip;
@@ -27,12 +27,18 @@ body {
 
 /* WordPress host theme isolation wrapper */
 .limuru-dairy-app {
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #0d2433;
   background-color: #ffffff;
   line-height: 1.5;
   overflow-x: clip;
   -webkit-font-smoothing: antialiased;
+}
+
+.limuru-dairy-app h1,
+.limuru-dairy-app h2,
+.limuru-dairy-app .font-display {
+  font-family: 'Bricolage Grotesque', 'Plus Jakarta Sans', sans-serif;
 }
 
 .limuru-dairy-app *,
@@ -451,6 +457,140 @@ body {
   animation-delay: var(--bubble-delay, 0s);
 }
 
+/* Sculpted Milk Crown Splash dynamics */
+@keyframes milkSplashBurst {
+  0% {
+    opacity: 0.45;
+    transform: translateY(16px) scale(0.84);
+  }
+  45% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}
+
+@keyframes milkLipRise {
+  0% {
+    opacity: 0.35;
+    transform: scaleX(0.86) scaleY(0.68);
+  }
+  52% {
+    opacity: 1;
+    transform: scaleX(1.03) scaleY(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes milkDropletFloat {
+  0% {
+    opacity: 0;
+    transform: translate(0px, 14px) scale(0.55);
+  }
+  35% {
+    opacity: 1;
+    transform: translate(calc(var(--drop-x, 0px) * 0.45), calc(var(--drop-y, -12px) * 0.65)) scale(1.08);
+  }
+  68%, 100% {
+    opacity: 0.96;
+    transform: translate(var(--drop-x, 0px), var(--drop-y, 0px)) scale(1);
+  }
+}
+
+.animate-milk-splash-burst {
+  animation: milkSplashBurst 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-milk-lip-rise {
+  animation: milkLipRise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 50ms both;
+}
+
+.animate-milk-droplet {
+  animation: milkDropletFloat 1.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes milkPourStream {
+  0% {
+    transform: translateY(-110%) scaleY(0.15);
+    opacity: 0;
+  }
+  35% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0%) scaleY(1);
+    opacity: 0.94;
+  }
+}
+
+.animate-milk-pour {
+  animation: milkPourStream 1.3s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+@keyframes milkRippleRing {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+.animate-milk-ripple {
+  animation: milkRippleRing 1.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  transform-origin: center;
+}
+
+@keyframes clickMilkRipple {
+  0% {
+    transform: scale(0.2);
+    opacity: 0.95;
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.85);
+  }
+  100% {
+    transform: scale(8.5);
+    opacity: 0;
+    box-shadow: 0 0 0 28px rgba(143, 213, 247, 0);
+  }
+}
+
+.animate-click-milk-ripple {
+  animation: clickMilkRipple 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes productFloatSubtle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(0.6deg);
+  }
+}
+
+.animate-product-float {
+  animation: productFloatSubtle 4s ease-in-out infinite;
+}
+
+.product-card-hover-overlay {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .product-card-hover-overlay,
+.product-card-hover-trigger:hover .product-card-hover-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Showcase turntable pulse & light sweep */
 @keyframes turntablePulse {
   0%, 100% {
@@ -760,6 +900,51 @@ body {
   animation: viewFadeSwitch 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
+/* Subtle 3D product card hover tilt & specular dairy-glass reflection */
+.product-tilt-outer {
+  perspective: 1100px;
+}
+
+.product-tilt-card {
+  transform-style: preserve-3d;
+  transform: perspective(1100px) rotateX(var(--tilt-rx, 0deg)) rotateY(var(--tilt-ry, 0deg)) translate3d(0, var(--tilt-ty, 0px), var(--tilt-tz, 0px));
+  transition:
+    transform 360ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 280ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 240ms ease;
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .product-tilt-card:hover {
+    --tilt-ty: -5px;
+    --tilt-tz: 8px;
+    transition:
+      transform 140ms cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 260ms cubic-bezier(0.16, 1, 0.3, 1),
+      border-color 220ms ease;
+  }
+
+  .product-tilt-card:hover .product-tilt-pack {
+    transform: translate3d(var(--tilt-px, 0px), var(--tilt-py, 0px), 14px) scale(1.13);
+  }
+}
+
+.product-tilt-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 15;
+  opacity: var(--glare-o, 0);
+  background: radial-gradient(
+    circle at var(--glare-x, 50%) var(--glare-y, 35%),
+    rgba(255, 255, 255, 0.36) 0%,
+    rgba(143, 213, 247, 0.14) 34%,
+    transparent 68%
+  );
+  transition: opacity 260ms ease;
+}
+
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -767,6 +952,8 @@ body {
   }
 
   .hero-carousel-slot,
+  .product-tilt-card,
+  .product-tilt-card:hover .product-tilt-pack,
   .animate-header-in,
   .animate-nav-item,
   .animate-dropdown-in,
@@ -775,6 +962,9 @@ body {
   .animate-wave-1,
   .animate-wave-2,
   .animate-bubble,
+  .animate-milk-splash-burst,
+  .animate-milk-lip-rise,
+  .animate-milk-droplet,
   .animate-turntable-ring,
   .animate-orbit-ring,
   .animate-light-sweep,
@@ -797,8 +987,71 @@ body {
     transform: none !important;
   }
 
+  .product-tilt-glare {
+    display: none !important;
+  }
+
   .flip-card-inner {
     transition: none !important;
   }
 }
 
+/* Clean print & PDF pagination architecture */
+@page {
+  size: auto;
+  margin: 14mm 12mm;
+}
+
+@media print {
+  html,
+  body,
+  .limuru-dairy-app {
+    background: #ffffff !important;
+    color: #0d2433 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .print-hide,
+  header .nav-scroll-row,
+  [data-testid="floating-checkout-bar"],
+  [data-testid="cart-toast"],
+  .animate-bubble,
+  .animate-fly-cart {
+    display: none !important;
+  }
+
+  header {
+    position: static !important;
+    box-shadow: none !important;
+    border-bottom: 1px solid #c3e8fb !important;
+  }
+
+  .print-page-break {
+    break-before: page;
+    page-break-before: always;
+  }
+
+  article,
+  .product-tilt-card,
+  .product-tilt-outer,
+  .print-break-avoid,
+  blockquote {
+    break-inside: avoid;
+    page-break-inside: avoid;
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  section {
+    break-inside: avoid-page;
+  }
+}

@@ -44,11 +44,12 @@ export function FarmerServicesPage({ onNavigate }: FarmerServicesPageProps) {
           </div>
 
           <div className="mt-10 layout-split-2 gap-6">
-            <article className="bg-white border border-[#c3e8fb] overflow-hidden shadow-[0_12px_36px_-24px_rgba(13,36,51,0.14)] flex flex-col">
+            <article className="rounded-2xl bg-white border border-[#c3e8fb] overflow-hidden shadow-[0_12px_36px_-24px_rgba(13,36,51,0.14)] flex flex-col">
               <div className="h-60 overflow-hidden border-b border-[#c3e8fb]">
                 <ResilientImage
                   src={ASSET_IMAGES.coolingCentre}
                   alt="Attendant weighing morning milk beside the Faspol stainless cooling tank at a Limuru Dairy Milk Collection and Cooling Centre"
+                  loading="lazy"
                   className="w-full h-full object-cover object-center"
                 />
               </div>
@@ -67,10 +68,11 @@ export function FarmerServicesPage({ onNavigate }: FarmerServicesPageProps) {
               </div>
             </article>
 
-            <article className="bg-white border border-[#c3e8fb] overflow-hidden shadow-[0_12px_36px_-24px_rgba(13,36,51,0.14)] flex flex-col">
+            <article className="rounded-2xl bg-white border border-[#c3e8fb] overflow-hidden shadow-[0_12px_36px_-24px_rgba(13,36,51,0.14)] flex flex-col">
               <ProductStudioVisual
                 src={ASSET_IMAGES.limdaFeeds}
                 alt="LIMDA Feeds 70kg High Yield Dairy Meal bag"
+                loading="lazy"
                 glowColor="rgba(39, 168, 236, 0.22)"
                 className="h-60 p-1.5 border-b border-[#c3e8fb]"
               />
@@ -87,11 +89,12 @@ export function FarmerServicesPage({ onNavigate }: FarmerServicesPageProps) {
               </div>
             </article>
 
-            <article className="bg-white border border-[#c3e8fb] overflow-hidden shadow-[0_12px_36px_-24px_rgba(13,36,51,0.14)] flex flex-col">
+            <article className="rounded-2xl bg-white border border-[#c3e8fb] overflow-hidden shadow-[0_12px_36px_-24px_rgba(13,36,51,0.14)] flex flex-col">
               <div className="h-60 overflow-hidden border-b border-[#c3e8fb]">
                 <ResilientImage
                   src={ASSET_IMAGES.scrollingVet}
                   alt="LIMDA Feeds veterinary field team examining a dairy cow on a member farm"
+                  loading="lazy"
                   className="w-full h-full object-cover object-top"
                 />
               </div>
@@ -110,11 +113,12 @@ export function FarmerServicesPage({ onNavigate }: FarmerServicesPageProps) {
               </div>
             </article>
 
-            <article className="bg-white border border-[#c3e8fb] overflow-hidden shadow-[0_12px_36px_-24px_rgba(13,36,51,0.14)] flex flex-col">
+            <article className="rounded-2xl bg-white border border-[#c3e8fb] overflow-hidden shadow-[0_12px_36px_-24px_rgba(13,36,51,0.14)] flex flex-col">
               <div className="h-60 overflow-hidden border-b border-[#c3e8fb]">
                 <ResilientImage
                   src={ASSET_IMAGES.plantEquipment}
                   alt="Stainless steel milk processing and pasteurization equipment at Limuru Dairy"
+                  loading="lazy"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -184,10 +188,11 @@ export function FarmerServicesPage({ onNavigate }: FarmerServicesPageProps) {
       <section className="bg-white py-16">
         <div className="site-container flex flex-col min-[861px]:flex-row min-[861px]:items-center justify-between gap-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-            <div className="w-full sm:w-44 aspect-[4/3] shrink-0 overflow-hidden border border-[#c3e8fb] bg-[#eef8fe]">
+            <div className="w-full sm:w-44 aspect-[4/3] rounded-xl shrink-0 overflow-hidden border border-[#c3e8fb] bg-[#eef8fe]">
               <ResilientImage
                 src={ASSET_IMAGES.vetExtension}
                 alt="Limuru Fresh veterinary extension officer consulting with dairy farmers"
+                loading="lazy"
                 className="w-full h-full object-cover object-top"
               />
             </div>

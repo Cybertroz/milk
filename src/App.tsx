@@ -458,10 +458,14 @@ export default function App() {
       <Header
         activePage={activePage}
         cartCount={itemCount}
+        cartSubtotalKes={cartSummary.subtotalKes}
         orderCount={orderHistoryCount}
         authUser={authUser}
         cartBtnRef={cartBtnRef}
         onNavigate={navigateTo}
+        onSelectFlavour={handleNavigateShop}
+        onQuickViewProduct={(product) => setQuickViewProduct(product)}
+        onAddToCart={handleAddToCart}
         onScrollToFooter={handleScrollToFooter}
         onOpenCart={() => setCartOpen(true)}
         onOpenProfile={() => {
@@ -624,7 +628,7 @@ export default function App() {
       {itemCount > 0 && !cartOpen && (
         <div
           data-testid="floating-checkout-bar"
-          className="fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 z-[55] w-[calc(100vw-1.5rem)] max-w-lg bg-[#0d2433] text-white border border-[#27a8ec]/50 shadow-[0_18px_48px_-12px_rgba(13,36,51,0.55)] px-4 py-3 flex items-center justify-between gap-3"
+          className="print-hide fixed bottom-[max(0.75rem,env(safe-area-inset-bottom))] left-1/2 -translate-x-1/2 z-[55] w-[calc(100vw-1.5rem)] max-w-lg bg-[#0d2433] text-white border border-[#27a8ec]/50 shadow-[0_18px_48px_-12px_rgba(13,36,51,0.55)] px-4 py-3 flex items-center justify-between gap-3"
         >
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-9 h-9 bg-[#27a8ec] text-[#0d2433] inline-flex items-center justify-center shrink-0 font-extrabold text-sm tabular-nums">
@@ -672,7 +676,7 @@ export default function App() {
           role="status"
           aria-live="polite"
           data-testid="cart-toast"
-          className="animate-toast-in fixed top-24 right-[max(1rem,env(safe-area-inset-right))] sm:right-[max(2rem,env(safe-area-inset-right))] z-[65] max-w-sm w-[calc(100vw-2rem)] sm:w-auto bg-white border border-[#27a8ec] shadow-[0_18px_44px_-16px_rgba(13,36,51,0.28)] p-3.5 flex items-center justify-between gap-4"
+          className="print-hide animate-toast-in fixed top-24 right-[max(1rem,env(safe-area-inset-right))] sm:right-[max(2rem,env(safe-area-inset-right))] z-[65] max-w-sm w-[calc(100vw-2rem)] sm:w-auto bg-white border border-[#27a8ec] shadow-[0_18px_44px_-16px_rgba(13,36,51,0.28)] p-3.5 flex items-center justify-between gap-4"
         >
           <div className="flex items-center gap-3 min-w-0">
             <CheckCircle2 className="w-5 h-5 text-[#0a74b5] shrink-0" aria-hidden="true" />
@@ -716,8 +720,12 @@ export default function App() {
           key={token.id}
           src={token.image}
           alt=""
+          width={48}
+          height={48}
+          loading="lazy"
+          decoding="async"
           aria-hidden="true"
-          className="animate-fly-cart pointer-events-none fixed z-[70] w-12 h-12 object-contain p-1 border border-[#27a8ec] bg-[#eef8fe] shadow-md"
+          className="animate-fly-cart pointer-events-none fixed z-[70] w-12 h-12 rounded-lg object-contain p-1 border border-[#27a8ec] bg-[#eef8fe] shadow-md"
           style={
             {
               left: `${token.startX}px`,
